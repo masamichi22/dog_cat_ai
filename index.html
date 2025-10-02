@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>犬猫判定アプリ</title>
+    <style>
+        body {
+            background-color: #ffff99;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .result {
+            color: #0099ff;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .probs {
+            color: #0099ff;
+            font-size: 1.2em;
+        }
+        img {
+            border: 2px solid #555;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>犬猫判定アプリ</h1>
+    <form method="post">
+        <label>AIが画像の犬猫判定をします（事実とは異なる判定をする場合もあります）</label><br>
+        <label>画像のURLを入力してください:</label><br>
+        <input type="text" name="url" size="60">
+        <input type="submit" value="判定">
+    </form>
+
+    {% if url %}
+        <h2>入力された画像:</h2>
+        <img src="{{ url }}" width="256">
+    {% endif %}
+
+    {% if prediction %}
+        <div class="result">判定結果: {{ prediction }}</div>
+        {% if probs %}
+            <div class="probs">
+                Cat: {{ "%.1f" | format(probs[0] * 100) }}%<br>
+                Dog: {{ "%.1f" | format(probs[1] * 100) }}%
+            </div>
+        {% endif %}
+    {% endif %}
+    <p><small>Last updated : 2025/09/23</small></p>
+    <p><small>&copy; 2025 Masamichi Yoshida</small></p>
+</body>
+</html>
